@@ -12,10 +12,7 @@ import java.util.List;
 @Repository
 public interface LunchMenuItemRepository extends JpaRepository<LunchMenuItem, Integer> {
     @Query("SELECT mi FROM LunchMenuItem mi WHERE mi.restaurant.id=:restaurantId "
-            + " and mi.menuDate =:date ORDER BY mi.name ASC")
-    List<LunchMenuItem> getAllOnDate(@Param("restaurantId") int restaurantId, @Param("date") LocalDate date);
+            + " and mi.menuDate >= :startDate and mi.menuDate <= :endDate  ORDER BY mi.name ASC")
+    List<LunchMenuItem> getAllBetween(@Param("restaurantId") int restaurantId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-    default List<LunchMenuItem> getAllOnCurrentDate(int restaurantId){
-        return getAllOnDate(restaurantId, LocalDate.now());
-    }
 }
