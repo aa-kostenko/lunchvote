@@ -1,8 +1,4 @@
-DELETE FROM votes;
-DELETE FROM lunch_menu_items;
-DELETE FROM restaurants;
-DELETE FROM user_roles;
-DELETE FROM users;
+TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK;
 
 INSERT INTO users (name, email, password)
 VALUES ('Admin1', 'admin1@gmail.com', 'admin1'),
@@ -10,7 +6,6 @@ VALUES ('Admin1', 'admin1@gmail.com', 'admin1'),
        ('User1', 'user1@yandex.ru', 'password1'),
        ('User2', 'user2@yandex.ru', 'password2'),
        ('User3', 'user3@yandex.ru', 'password3');
-
 
 INSERT INTO user_roles (role, user_id)
 VALUES ('ADMIN', 1),

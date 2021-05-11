@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,8 @@ public class LunchMenuItemRestController {
 
     @GetMapping
     public List<LunchMenuItem> getAllOnCurrentDate(@PathVariable int restaurantId) {
-        return repository.getAllOnCurrentDate(restaurantId);
+        LocalDate dateNow = LocalDate.now();
+        return repository.getAllBetween(restaurantId, dateNow, dateNow );
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

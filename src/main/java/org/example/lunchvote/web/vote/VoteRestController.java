@@ -1,16 +1,19 @@
 package org.example.lunchvote.web.vote;
 
+import org.example.lunchvote.AuthorizedUser;
 import org.example.lunchvote.model.LunchMenuItem;
 import org.example.lunchvote.model.Vote;
 import org.example.lunchvote.repository.VoteRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -24,8 +27,10 @@ public class VoteRestController {
         this.repository = repository;
     }
     @GetMapping
-    public List<Vote> getAllOnDate() {
-        return repository.getAllOnCurrentDate();
+    public List<Vote> getAllOnDate(@AuthenticationPrincipal AuthorizedUser authUser) {
+        LocalDate dateNow = LocalDate.now();
+        int userId = authUser.getId();
+        return repository.getAllBetween(dateNow, dateNow, userId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
