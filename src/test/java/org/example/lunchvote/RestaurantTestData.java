@@ -11,6 +11,8 @@ public class RestaurantTestData {
     public static final int RESTAURAUNT1_ID = 1;
     public static final int RESTAURAUNT2_ID = 2;
 
+    public static final int NOT_FOUND = 10;
+
     public static final Restaurant restauraunt1 = new Restaurant(RESTAURAUNT1_ID, "Бумбараш");
     public static final Restaurant restauraunt2 = new Restaurant(RESTAURAUNT2_ID, "Диканька");
 
