@@ -30,10 +30,11 @@ public class LunchMenuItem extends AbstractNamedEntity {
     public LunchMenuItem(){
     }
 
-    public LunchMenuItem(Integer id, String name, LocalDate menuDate, BigDecimal price) {
+    public LunchMenuItem(Integer id, Restaurant restaurant, String name, LocalDate menuDate, BigDecimal price) {
         super(id, name);
         this.menuDate = menuDate;
         this.price = price;
+        this.restaurant = restaurant;
     }
 
     public Restaurant getRestaurant() {
