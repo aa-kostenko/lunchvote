@@ -70,11 +70,6 @@ public class Vote extends AbstractBaseEntity{
         return voteDate;
     }
 
-    /*@PostLoad
-    public void logUserLoad() {
-        voteDate = dateTime.toLocalDate();
-    }*/
-
     @Override
     public String toString() {
         return "Vote{" +

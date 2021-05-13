@@ -64,7 +64,8 @@ public class LunchMenuItem extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "LunchMenuItem{" +
-                "restaurant=" + restaurant +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", menuDate=" + menuDate +
                 ", price=" + price +
                 '}';

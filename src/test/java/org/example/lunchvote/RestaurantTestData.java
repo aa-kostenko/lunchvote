@@ -6,7 +6,7 @@ import java.util.List;
 
 public class RestaurantTestData {
 
-    public static org.example.lunchvote.TestMatcher<Restaurant> RESTAURANT_MATCHER = org.example.lunchvote.TestMatcher.usingEqualsComparator(Restaurant.class);
+    public static org.example.lunchvote.TestMatcher<Restaurant> RESTAURANT_MATCHER = org.example.lunchvote.TestMatcher.usingIgnoringFieldsComparator(Restaurant.class, "lunchMenuItems");
 
     public static final int RESTAURAUNT1_ID = 1;
     public static final int RESTAURAUNT2_ID = 2;
