@@ -122,7 +122,7 @@ public class LunchMenuItemTestData {
                     LUNCH_MENU4_DAY1_ITEM1_ID,
                     restauraunt4,
                     "Лапша китайская",
-                    LocalDate.of(2021, 1, 29),
+                    LocalDate.now(),
                     new BigDecimal("133.00"));
 
     public static final LunchMenuItem lunchMenu4Day1Item2 =
@@ -130,7 +130,7 @@ public class LunchMenuItemTestData {
                     LUNCH_MENU4_DAY1_ITEM1_ID + 1,
                     restauraunt4,
                     "Вареники",
-                    LocalDate.of(2021, 1, 29),
+                    LocalDate.now(),
                     new BigDecimal("244.00"));
 
     public static final LunchMenuItem lunchMenu4Day1Item3 =
@@ -138,7 +138,7 @@ public class LunchMenuItemTestData {
                     LUNCH_MENU4_DAY1_ITEM1_ID + 2,
                     restauraunt4,
                     "Рататуй",
-                    LocalDate.of(2021, 1, 29),
+                    LocalDate.now(),
                     new BigDecimal("366.00"));
 
     public static final List<LunchMenuItem> lunchMenu1Day1Items = List.of(lunchMenu1Day1Item1, lunchMenu1Day1Item2, lunchMenu1Day1Item3);
@@ -150,6 +150,7 @@ public class LunchMenuItemTestData {
     public static final List<LunchMenuItem> lunchMenu2Items = Stream.concat(lunchMenu2Day1Items.stream(), lunchMenu2Day2Items.stream()).collect(Collectors.toList());
 
     public static final List<LunchMenuItem> lunchMenu4Day1Items = List.of(lunchMenu4Day1Item1, lunchMenu4Day1Item2, lunchMenu4Day1Item3);
+    public static final List<LunchMenuItem> lunchMenu4Items = lunchMenu4Day1Items;
 
     public static LunchMenuItem getNew() {
         return new LunchMenuItem(

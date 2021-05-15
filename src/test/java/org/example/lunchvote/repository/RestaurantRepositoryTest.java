@@ -14,6 +14,7 @@ import java.util.List;
 import static org.example.lunchvote.LunchMenuItemTestData.LUNCH_MENU_ITEM_MATCHER;
 import static org.example.lunchvote.LunchMenuItemTestData.lunchMenu1Items;
 import static org.example.lunchvote.LunchMenuItemTestData.lunchMenu2Items;
+import static org.example.lunchvote.LunchMenuItemTestData.lunchMenu4Items;
 import static org.example.lunchvote.RestaurantTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -66,11 +67,13 @@ public class RestaurantRepositoryTest extends AbstractRepositoryTest {
     @Test
     void getAllWithLunchMenuItems(){
         List<Restaurant> restaurants = repository.geAlltWithLunchMenuItems();
-        RESTAURANT_MATCHER.assertMatch(restaurants, List.of(restauraunt1, restauraunt2));
+        RESTAURANT_MATCHER.assertMatch(restaurants, List.of(restauraunt1, restauraunt2, restauraunt4));
         RESTAURANT_MATCHER.assertMatch(restaurants.get(0), restauraunt1);
         RESTAURANT_MATCHER.assertMatch(restaurants.get(1), restauraunt2);
+        RESTAURANT_MATCHER.assertMatch(restaurants.get(2), restauraunt4);
         LUNCH_MENU_ITEM_MATCHER.assertMatch(restaurants.get(0).getLunchMenuItems(), lunchMenu1Items);
         LUNCH_MENU_ITEM_MATCHER.assertMatch(restaurants.get(1).getLunchMenuItems(), lunchMenu2Items);
+        LUNCH_MENU_ITEM_MATCHER.assertMatch(restaurants.get(2).getLunchMenuItems(), lunchMenu4Items);
     }
 
     @Test
@@ -101,10 +104,10 @@ public class RestaurantRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void geExclusiveHasMenuInThatDay(){
+    void geExclusiveHasMenuToday(){
         List<Restaurant> restaurants = repository.geAllHasMenuBetween(
-                LocalDate.of(2021,1,29),
-                LocalDate.of(2021,1,29));
+                LocalDate.now(),
+                LocalDate.now());
         RESTAURANT_MATCHER.assertMatch(restaurants, List.of(restauraunt4));
         assertThrows(LazyInitializationException.class, () -> restaurants.get(0).getLunchMenuItems().get(0));
     }
