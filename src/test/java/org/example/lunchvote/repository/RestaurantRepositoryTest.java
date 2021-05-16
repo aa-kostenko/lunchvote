@@ -1,6 +1,5 @@
 package org.example.lunchvote.repository;
 
-import org.example.lunchvote.model.LunchMenuItem;
 import org.example.lunchvote.model.Restaurant;
 import org.example.lunchvote.util.exception.NotFoundException;
 import org.hibernate.LazyInitializationException;
@@ -11,10 +10,9 @@ import org.springframework.dao.DataAccessException;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.example.lunchvote.LunchMenuItemTestData.LUNCH_MENU_ITEM_MATCHER;
-import static org.example.lunchvote.LunchMenuItemTestData.lunchMenu1Items;
-import static org.example.lunchvote.LunchMenuItemTestData.lunchMenu2Items;
-import static org.example.lunchvote.LunchMenuItemTestData.lunchMenu4Items;
+import static org.example.lunchvote.LunchMenuItemTestData.*;
+import static org.example.lunchvote.RestaurantTestData.NOT_FOUND;
+import static org.example.lunchvote.RestaurantTestData.getNew;
 import static org.example.lunchvote.RestaurantTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -54,7 +52,7 @@ public class RestaurantRepositoryTest extends AbstractRepositoryTest {
         assertThrows(NotFoundException.class,
                 () -> repository
                         .findById(NOT_FOUND)
-                        .orElseThrow(() -> new NotFoundException("not found Restaurant with id " + RESTAURAUNT1_ID)));
+                        .orElseThrow(() -> new NotFoundException("not found Restaurant with id " + NOT_FOUND)));
     }
 
     @Test
@@ -113,7 +111,7 @@ public class RestaurantRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void geAllHasMenuOnNoWorkPeriod(){
+    void getAllHasMenuOnNoWorkPeriod(){
         List<Restaurant> restaurants = repository.geAllHasMenuBetween(
                 LocalDate.of(1900,1,30),
                 LocalDate.of(1900,1,31));

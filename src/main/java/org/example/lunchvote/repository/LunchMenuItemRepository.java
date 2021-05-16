@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface LunchMenuItemRepository extends JpaRepository<LunchMenuItem, Integer> {
     @Query("SELECT mi FROM LunchMenuItem mi WHERE mi.restaurant.id=:restaurantId "
-            + " and mi.menuDate >= :startDate and mi.menuDate <= :endDate  ORDER BY mi.name ASC")
+            + " and mi.menuDate >= :startDate and mi.menuDate <= :endDate")
     List<LunchMenuItem> getAllBetween(@Param("restaurantId") int restaurantId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 }

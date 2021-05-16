@@ -4,6 +4,7 @@ import org.example.lunchvote.model.LunchMenuItem;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,7 +20,7 @@ public class LunchMenuItemTestData {
     public static final int LUNCH_MENU2_DAY1_ITEM1_ID = LUNCH_MENU1_DAY2_ITEM1_ID + 3;
     public static final int LUNCH_MENU2_DAY2_ITEM1_ID = LUNCH_MENU2_DAY1_ITEM1_ID + 3;
     public static final int LUNCH_MENU4_DAY1_ITEM1_ID = LUNCH_MENU2_DAY2_ITEM1_ID + 3;
-    public static final int NOT_FOUND = 10000;
+    public static final int NOT_FOUND = 0;
 
     public static final LunchMenuItem lunchMenu1Day1Item1 =
             new LunchMenuItem(
@@ -152,12 +153,17 @@ public class LunchMenuItemTestData {
     public static final List<LunchMenuItem> lunchMenu4Day1Items = List.of(lunchMenu4Day1Item1, lunchMenu4Day1Item2, lunchMenu4Day1Item3);
     public static final List<LunchMenuItem> lunchMenu4Items = lunchMenu4Day1Items;
 
+    public static final List<LunchMenuItem> lunchMenuItems =
+            Stream.of(lunchMenu1Items, lunchMenu2Items, lunchMenu4Items)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList());
+
     public static LunchMenuItem getNew() {
         return new LunchMenuItem(
                 null,
                 restauraunt1,
                 "Какое-то новое блюдо",
-                LocalDate.of(2021, 1, 30),
+                LocalDate.now(),
                 new BigDecimal("160.00")
         );
     }

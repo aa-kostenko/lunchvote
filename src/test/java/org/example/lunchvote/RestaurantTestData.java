@@ -13,7 +13,7 @@ public class RestaurantTestData {
     public static final int RESTAURAUNT_WITHOUT_MENU_ID = 3;
     public static final int RESTAURAUNT4_ID = 4;
 
-    public static final int NOT_FOUND = 10;
+    public static final int NOT_FOUND = 0;
 
     public static final Restaurant restauraunt1 = new Restaurant(RESTAURAUNT1_ID, "Бумбараш");
     public static final Restaurant restauraunt2 = new Restaurant(RESTAURAUNT2_ID, "Диканька");
