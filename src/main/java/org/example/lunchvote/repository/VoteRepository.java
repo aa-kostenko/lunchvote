@@ -15,13 +15,13 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
-    @Query("SELECT v FROM Vote v WHERE v.user.id = :userId and v.dateTime >= :startDate and v.dateTime <= :endDate ORDER BY v.dateTime DESC")
+    @Query("SELECT v FROM Vote v WHERE v.user.id = :userId and v.dateTime >= :startDate and v.dateTime <= :endDate ORDER BY v.dateTime ASC")
     List<Vote> getAllBetween(@Param("startDate") LocalDateTime startDateTime, @Param("endDate") LocalDateTime endDateTime, @Param("userId") int userId);
 
     @Query("SELECT v FROM Vote v WHERE v.id = :id and v.user.id = :userId")
     Optional<Vote> get(@Param("id") int id, @Param("userId") int userId);
 
-    @Query("SELECT v FROM Vote v WHERE v.user.id = :userId")
+    @Query("SELECT v FROM Vote v WHERE v.user.id = :userId ORDER BY v.dateTime ASC")
     List<Vote> getAll(@Param("userId") int userId);
 
 }

@@ -5,6 +5,7 @@ import org.example.lunchvote.model.User;
 import org.example.lunchvote.web.json.JsonUtil;
 
 import java.util.Collections;
+import java.util.List;
 
 public class UserTestData {
     public static final TestMatcher<User> USER_MATCHER = TestMatcher.usingIgnoringFieldsComparator(User.class, "registered", "password");
@@ -20,8 +21,9 @@ public class UserTestData {
     public static final User admin1 = new User(ADMIN1_ID, "Admin1", "admin1@gmail.com", "admin1", Role.ADMIN);
     public static final User admin2 = new User(ADMIN2_ID, "Admin2", "admin2@gmail.com", "admin2", Role.ADMIN);
     public static final User user1 = new User(USER1_ID, "User1", "user1@yandex.ru", "password1", Role.USER);
-    public static final User user2 = new User(USER1_ID, "User2", "user2@yandex.ru", "password2", Role.USER);
+    public static final User user2 = new User(USER2_ID, "User2", "user2@yandex.ru", "password2", Role.USER);
     public static final User user3 = new User(USER3_ID, "User3", "user3@yandex.ru", "password3", Role.USER);
+    public static final List<User> users = List.of(admin1, admin2, user1, user2, user3);
 
     public static User getNew() {
         return new User(null, "New", "new@gmail.com", "newPass", Role.USER);
