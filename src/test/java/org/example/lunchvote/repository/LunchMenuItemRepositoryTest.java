@@ -16,7 +16,7 @@ import static org.example.lunchvote.RestaurantTestData.RESTAURAUNT4_ID;
 import static org.example.lunchvote.RestaurantTestData.restauraunt4;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LunchMenuItemTest  extends AbstractRepositoryTest{
+public class LunchMenuItemRepositoryTest extends AbstractRepositoryTest{
     @Autowired
     LunchMenuItemRepository repository;
 

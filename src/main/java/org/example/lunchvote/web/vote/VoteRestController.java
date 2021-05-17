@@ -16,6 +16,9 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.example.lunchvote.util.DateTimeUtil.atStartOfDayOrMin;
+import static org.example.lunchvote.util.DateTimeUtil.atStartOfNextDayOrMax;
+
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteRestController {
@@ -30,7 +33,7 @@ public class VoteRestController {
     public List<Vote> getAllOnDate(@AuthenticationPrincipal AuthorizedUser authUser) {
         LocalDate dateNow = LocalDate.now();
         int userId = authUser.getId();
-        return repository.getAllBetween(dateNow, dateNow, userId);
+        return repository.getAllBetween(atStartOfDayOrMin(dateNow), atStartOfNextDayOrMax(dateNow), userId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

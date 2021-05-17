@@ -37,9 +37,11 @@ public class Vote extends AbstractBaseEntity{
     public Vote(){
     }
 
-    public Vote(int id, LocalDateTime dateTime){
+    public Vote(Integer id, LocalDateTime dateTime, User user, Restaurant restaurant){
         super(id);
         this.dateTime = dateTime;
+        this.user = user;
+        this.restaurant = restaurant;
     }
 
     public User getUser() {
