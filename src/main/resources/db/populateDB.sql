@@ -1,11 +1,11 @@
 TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK;
 
 INSERT INTO users (name, email, password)
-VALUES ('Admin1', 'admin1@gmail.com', 'admin1'),
-       ('Admin2', 'admin2@gmail.com', 'admin2'),
-       ('User1', 'user1@yandex.ru', 'password1'),
-       ('User2', 'user2@yandex.ru', 'password2'),
-       ('User3', 'user3@yandex.ru', 'password3');
+VALUES ('Admin1', 'admin1@gmail.com', '{noop}admin1'),
+       ('Admin2', 'admin2@gmail.com', '{noop}admin2'),
+       ('User1', 'user1@yandex.ru', '{noop}password1'),
+       ('User2', 'user2@yandex.ru', '{noop}password2'),
+       ('User3', 'user3@yandex.ru', '{noop}password3');
 
 INSERT INTO user_roles (role, user_id)
 VALUES ('ADMIN', 1),
