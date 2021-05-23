@@ -8,6 +8,8 @@
     <artifactId>lunchvote</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <packaging>war</packaging>
+
     <name>Vote for a restaurant for lunch</name>
 
     <properties>
@@ -39,7 +41,7 @@
     </properties>
 
     <build>
-        <finalName>topjava</finalName>
+        <finalName>lunchvote</finalName>
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>

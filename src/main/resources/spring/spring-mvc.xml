@@ -31,11 +31,6 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
 
-
-    <!--  Swagger2  https://medium.com/@andreymamontov/swagger-2-configuration-with-spring-xml-3cd643a12425 -->
-    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"/>
-    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
-
     <!--    https://stackoverflow.com/a/23615478/548473-->
     <bean id="defaultValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 </beans>
