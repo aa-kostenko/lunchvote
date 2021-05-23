@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.example.lunchvote.RestaurantTestData.*;
 import static org.example.lunchvote.TestUtil.readFromJson;
 import static org.example.lunchvote.TestUtil.userHttpBasic;
@@ -43,6 +45,16 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(RESTAURANT_MATCHER.contentJson(restauraunts));
+    }
+
+    @Test
+    void getAllHasMenuToday() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL+"hasMenuToday")
+                .with(userHttpBasic(user1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(RESTAURANT_MATCHER.contentJson(List.of(restauraunt4)));
     }
 
     @Test

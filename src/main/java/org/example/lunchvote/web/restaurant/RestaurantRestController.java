@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.example.lunchvote.util.ValidationUtil.assureIdConsistent;
@@ -36,6 +37,11 @@ public class RestaurantRestController {
         return repository.findById(id).orElseThrow(() -> new NotFoundException("Not found restaurant with id " + id));
     }
 
+    @GetMapping("hasMenuToday")
+    public List<Restaurant> getAllHasMenuToday(){
+        return repository.geAllHasMenuBetween(LocalDate.now(), LocalDate.now());
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@Validated @RequestBody Restaurant restaurant) {
         Restaurant created = repository.save(restaurant);
@@ -57,4 +63,5 @@ public class RestaurantRestController {
     public void delete(@PathVariable int id) {
         repository.delete(repository.getOne(id));
     }
+
 }
