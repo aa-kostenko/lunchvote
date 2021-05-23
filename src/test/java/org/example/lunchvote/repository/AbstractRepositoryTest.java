@@ -4,7 +4,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import static org.example.lunchvote.util.ValidationUtil.getRootCause;
+import static org.example.lunchvote.util.validation.ValidationUtil.getRootCause;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {

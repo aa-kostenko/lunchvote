@@ -18,8 +18,8 @@ import org.example.lunchvote.util.UserUtil;
 
 import java.util.List;
 
-import static org.example.lunchvote.util.ValidationUtil.assureIdConsistent;
-import static org.example.lunchvote.util.ValidationUtil.checkNew;
+import static org.example.lunchvote.util.validation.ValidationUtil.assureIdConsistent;
+import static org.example.lunchvote.util.validation.ValidationUtil.checkNew;
 
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
