@@ -1,19 +1,21 @@
 package org.example.lunchvote.web;
 
+import org.example.lunchvote.util.validation.ValidationUtil;
+import org.example.lunchvote.util.exception.ApplicationException;
+import org.example.lunchvote.util.exception.ErrorInfo;
+import org.example.lunchvote.util.exception.ErrorType;
+import org.example.lunchvote.util.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.example.lunchvote.util.ValidationUtil;
-import org.example.lunchvote.util.exception.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -65,9 +67,9 @@ public class ExceptionInfoHandler {
         return logAndGetErrorInfo(req, e, false, VALIDATION_ERROR, details);
     }
 
-    @ExceptionHandler({IllegalRequestDataException.class, MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class})
-    public ResponseEntity<ErrorInfo> illegalRequestDataError(HttpServletRequest req, Exception e) {
-        return logAndGetErrorInfo(req, e, false, VALIDATION_ERROR);
+    @ExceptionHandler({AccessDeniedException.class})
+    public ResponseEntity<ErrorInfo> accessDeniedError(HttpServletRequest req, Exception e) {
+        return logAndGetErrorInfo(req, e, false, ACCESS_DENIED);
     }
 
     @ExceptionHandler(Exception.class)
