@@ -1,4 +1,4 @@
-package org.example.lunchvote.util;
+package org.example.lunchvote.util.validation;
 
 import org.slf4j.Logger;
 import org.example.lunchvote.HasId;
@@ -90,5 +90,11 @@ public class ValidationUtil {
             log.warn("{} at request  {}: {}", errorType, req.getRequestURL(), rootCause.toString());
         }
         return rootCause;
+    }
+
+    public static void checkSingleModification(int count, String msg) {
+        if (count != 1) {
+            throw new NotFoundException(msg);
+        }
     }
 }
