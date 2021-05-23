@@ -6,6 +6,7 @@ import org.example.lunchvote.util.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,7 +15,8 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.example.lunchvote.util.ValidationUtil.assureIdConsistent;
+import static org.example.lunchvote.util.validation.ValidationUtil.assureIdConsistent;
+import static org.example.lunchvote.util.validation.ValidationUtil.checkSingleModification;
 
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,6 +44,7 @@ public class RestaurantRestController {
         return repository.geAllHasMenuBetween(LocalDate.now(), LocalDate.now());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@Validated @RequestBody Restaurant restaurant) {
         Restaurant created = repository.save(restaurant);
@@ -51,6 +54,7 @@ public class RestaurantRestController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Validated @RequestBody Restaurant restaurant, @PathVariable int id) {
@@ -58,10 +62,11 @@ public class RestaurantRestController {
         repository.save(restaurant);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        repository.delete(repository.getOne(id));
+        checkSingleModification(repository.delete(id), "Restaurant id=" + id + " missed");
     }
 
 }
