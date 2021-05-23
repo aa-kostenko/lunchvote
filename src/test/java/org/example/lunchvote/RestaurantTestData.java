@@ -25,4 +25,8 @@ public class RestaurantTestData {
     public static Restaurant getNew() {
         return new Restaurant(null, "Новый ресторан");
     }
+
+    public static Restaurant getUpdated() {
+        return new Restaurant(RESTAURAUNT1_ID, "Хрумбараш (бывший Бумбараш)");
+    }
 }
