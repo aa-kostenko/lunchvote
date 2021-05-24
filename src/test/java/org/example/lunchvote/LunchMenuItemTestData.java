@@ -168,4 +168,14 @@ public class LunchMenuItemTestData {
         );
     }
 
+    public static LunchMenuItem getUpdated() {
+        return new LunchMenuItem(
+                LUNCH_MENU1_DAY1_ITEM1_ID,
+                restauraunt1,
+                "Борщ по-мегрельски (со сметаной)",
+                LocalDate.now(),
+                new BigDecimal("260.00")
+        );
+    }
+
 }
