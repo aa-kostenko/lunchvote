@@ -1,20 +1,15 @@
 package org.example.lunchvote.web.user;
 
+import org.example.lunchvote.HasId;
+import org.example.lunchvote.model.User;
 import org.example.lunchvote.repository.UserRepository;
+import org.example.lunchvote.to.UserTo;
+import org.example.lunchvote.util.UserUtil;
 import org.example.lunchvote.util.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.BindException;
-import org.springframework.validation.DataBinder;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.example.lunchvote.HasId;
-import org.example.lunchvote.model.User;
-import org.example.lunchvote.to.UserTo;
-import org.example.lunchvote.util.UserUtil;
 
 import java.util.List;
 
@@ -26,18 +21,6 @@ public abstract class AbstractUserController {
 
     @Autowired
     protected UserRepository repository;
-
-    @Autowired
-    private UniqueMailValidator emailValidator;
-
-    @Autowired
-    @Qualifier("defaultValidator")
-    private Validator validator;
-
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(emailValidator);
-    }
 
     public List<User> getAll() {
         log.info("getAll");
@@ -77,11 +60,5 @@ public abstract class AbstractUserController {
 
     protected void validateBeforeUpdate(HasId user, int id) throws BindException {
         assureIdConsistent(user, id);
-        DataBinder binder = new DataBinder(user);
-        binder.addValidators(emailValidator, validator);
-        binder.validate();
-        if (binder.getBindingResult().hasErrors()) {
-            throw new BindException(binder.getBindingResult());
-        }
     }
 }
