@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.example.lunchvote.AuthorizedUser;
@@ -41,9 +42,9 @@ public class ProfileRestController extends AbstractUserController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody UserTo userTo, @AuthenticationPrincipal AuthorizedUser authUser) throws BindException {
+    public void update(@Validated @RequestBody UserTo userTo, @AuthenticationPrincipal AuthorizedUser authUser) throws BindException {
         validateBeforeUpdate(userTo, authUser.getId());
-        super.update(userTo, authUser.getId());
+        super.update(userTo);
     }
 
 }

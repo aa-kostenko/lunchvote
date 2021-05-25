@@ -48,9 +48,9 @@ public abstract class AbstractUserController {
         repository.delete(get(id));
     }
 
-    public void update(UserTo userTo, int id) {
-        log.info("update {} with id={}", userTo, id);
-        repository.save(UserUtil.createNewFromTo(userTo));
+    public void update(UserTo userTo) {
+        User user = get(userTo.id());
+        repository.save(UserUtil.updateFromTo(user, userTo));
     }
 
     public User getByMail(String email) {
