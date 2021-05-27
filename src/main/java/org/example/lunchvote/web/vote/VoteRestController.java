@@ -75,9 +75,6 @@ public class VoteRestController {
                 .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + restaurantId));
         Vote vote = new Vote(null, LocalDateTime.now(), user, restaurant);
         Vote created = repository.save(vote);
-
-        String json = JsonUtil.writeValue(created);
-
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
