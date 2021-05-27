@@ -2,8 +2,10 @@ package org.example.lunchvote.web.vote;
 
 import org.example.lunchvote.AuthorizedUser;
 import org.example.lunchvote.model.LunchMenuItem;
+import org.example.lunchvote.model.Restaurant;
 import org.example.lunchvote.model.Vote;
 import org.example.lunchvote.repository.VoteRepository;
+import org.example.lunchvote.util.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +31,23 @@ public class VoteRestController {
     public VoteRestController(VoteRepository repository) {
         this.repository = repository;
     }
+
+
+    @GetMapping("/{id}")
+    public Vote get(@AuthenticationPrincipal AuthorizedUser authUser, @PathVariable int id) {
+        return repository
+                .get(id, authUser.getId())
+                .orElseThrow(() -> new NotFoundException("Not found Vote with id " + id + " for user with id " + authUser.getId()));
+    }
+
     @GetMapping
-    public List<Vote> getAllOnDate(@AuthenticationPrincipal AuthorizedUser authUser) {
+    public List<Vote> getAll(@AuthenticationPrincipal AuthorizedUser authUser) {
+        int userId = authUser.getId();
+        return repository.getAll(userId);
+    }
+
+    @GetMapping("/today")
+    public List<Vote> getToday(@AuthenticationPrincipal AuthorizedUser authUser) {
         LocalDate dateNow = LocalDate.now();
         int userId = authUser.getId();
         return repository.getAllBetween(atStartOfDayOrMin(dateNow), atStartOfNextDayOrMax(dateNow), userId);

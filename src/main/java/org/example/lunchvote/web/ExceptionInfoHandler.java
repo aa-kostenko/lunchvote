@@ -30,11 +30,13 @@ public class ExceptionInfoHandler {
     public static final String EXCEPTION_DUPLICATE_EMAIL = "User with this email already exists";
     public static final String EXCEPTION_DUPLICATE_RESTAURANT_NAME = "Restaurant with this name already exists";
     public static final String EXCEPTION_DUPLICATE_RESTAURANT_DAY_MENU_NAME = "Lunch menu item for this restaurant and day with this name already exists";
+    public static final String EXCEPTION_DUPLICATE_VOTE_USER_DATE = "Vote for that day for this user already exists";
 
     private static final Map<String, String> CONSTRAINS_I18N_MAP = Map.of(
             "users_unique_email_idx", EXCEPTION_DUPLICATE_EMAIL,
             "restaurants_unique_name_idx", EXCEPTION_DUPLICATE_RESTAURANT_NAME,
-            "lunch_menu_items_unique_idx", EXCEPTION_DUPLICATE_RESTAURANT_DAY_MENU_NAME);
+            "lunch_menu_items_unique_idx", EXCEPTION_DUPLICATE_RESTAURANT_DAY_MENU_NAME,
+            "votes_unique_user_date_idx", EXCEPTION_DUPLICATE_VOTE_USER_DATE);
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorInfo> handleError(HttpServletRequest req, NotFoundException e) {

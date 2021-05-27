@@ -18,6 +18,8 @@ public class VoteTestData {
     public static org.example.lunchvote.TestMatcher<Vote> VOTE_MATCHER =
             TestMatcher.usingIgnoringFieldsComparator(Vote.class, "user", "restaurant");
 
+    public static final int NOT_FOUND = 0;
+
     public static final int DAY1_VOTE1_ID = 1;
     public static final int DAY1_VOTE2_ID = DAY1_VOTE1_ID + 1;
     public static final int DAY1_VOTE3_ID = DAY1_VOTE2_ID + 1;

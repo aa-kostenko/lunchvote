@@ -1,7 +1,5 @@
 package org.example.lunchvote.model;
 
-import org.hibernate.annotations.Formula;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
