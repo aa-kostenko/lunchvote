@@ -1,5 +1,10 @@
 package org.example.lunchvote.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -24,7 +29,6 @@ public class Vote extends AbstractBaseEntity{
     private LocalDateTime dateTime;
 
     @Transient
-    @Column(name = "vote_date", nullable = false)
     private LocalDate voteDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,16 +36,23 @@ public class Vote extends AbstractBaseEntity{
     @NotNull
     private Restaurant restaurant;
 
+    @PostLoad
+    public void postLoad() {
+        voteDate = LocalDate.from(dateTime);
+    }
+
     public Vote(){
     }
 
     public Vote(Integer id, LocalDateTime dateTime, User user, Restaurant restaurant){
         super(id);
         this.dateTime = dateTime;
+        this.voteDate = LocalDate.from(dateTime);
         this.user = user;
         this.restaurant = restaurant;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -56,6 +67,7 @@ public class Vote extends AbstractBaseEntity{
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+        this.voteDate = LocalDate.from(dateTime);
     }
 
     public Restaurant getRestaurant() {
@@ -66,6 +78,7 @@ public class Vote extends AbstractBaseEntity{
         this.restaurant = restaurant;
     }
 
+    @JsonInclude
     public LocalDate getVoteDate() {
         return voteDate;
     }
@@ -73,8 +86,9 @@ public class Vote extends AbstractBaseEntity{
     @Override
     public String toString() {
         return "Vote{" +
-                "user=" + user +
+                "id=" + id +
                 ", dateTime=" + dateTime +
+                ", voteDate=" + voteDate +
                 ", restaurant=" + restaurant +
                 '}';
     }

@@ -16,7 +16,7 @@ import static org.example.lunchvote.UserTestData.*;
 
 public class VoteTestData {
     public static org.example.lunchvote.TestMatcher<Vote> VOTE_MATCHER =
-            TestMatcher.usingIgnoringFieldsComparator(Vote.class, "user", "restaurant");
+            TestMatcher.usingIgnoringFieldsComparator(Vote.class, "user", "restaurant", "dateTime");
 
     public static final int NOT_FOUND = 0;
 

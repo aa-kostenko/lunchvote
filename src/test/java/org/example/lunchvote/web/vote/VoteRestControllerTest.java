@@ -3,6 +3,7 @@ package org.example.lunchvote.web.vote;
 import org.example.lunchvote.model.Restaurant;
 import org.example.lunchvote.model.Vote;
 import org.example.lunchvote.repository.VoteRepository;
+import org.example.lunchvote.to.VoteTo;
 import org.example.lunchvote.web.AbstractControllerTest;
 import org.example.lunchvote.web.json.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import static org.example.lunchvote.TestUtil.userHttpBasic;
 import static org.example.lunchvote.UserTestData.admin1;
 import static org.example.lunchvote.UserTestData.user1;
 import static org.example.lunchvote.VoteTestData.*;
+import static org.example.lunchvote.util.VoteUtil.asTo;
 import static org.example.lunchvote.util.exception.ErrorType.VALIDATION_ERROR;
 import static org.example.lunchvote.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_RESTAURANT_NAME;
 import static org.example.lunchvote.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_VOTE_USER_DATE;
@@ -69,9 +71,10 @@ public class VoteRestControllerTest  extends AbstractControllerTest {
     @Test
     void createWithLocation() throws Exception {
         Vote newVote = getNew();
+        VoteTo voteTo = asTo(newVote);
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newVote))
+                .content(JsonUtil.writeValue(voteTo))
                 .with(userHttpBasic(user1)));
 
         Vote created = readFromJson(action, Vote.class);
@@ -83,48 +86,20 @@ public class VoteRestControllerTest  extends AbstractControllerTest {
     @Test
     void createWithLocationTwice() throws Exception {
         Vote newVote = getNew();
-
+        VoteTo voteTo = asTo(newVote);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newVote))
+                .content(JsonUtil.writeValue(voteTo))
                 .with(userHttpBasic(user1)));
 
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newVote))
+                .content(JsonUtil.writeValue(voteTo))
                 .with(userHttpBasic(user1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(errorType(VALIDATION_ERROR))
                 .andExpect(content().string(containsString(EXCEPTION_DUPLICATE_VOTE_USER_DATE)));
-    }
-
-    @Test
-    void createWithLocationInPast() throws Exception {
-        Vote newVote = getNew();
-        newVote.setDateTime(newVote.getDateTime().minusDays(1));
-
-        perform(MockMvcRequestBuilders.post(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newVote))
-                .with(userHttpBasic(user1)))
-                .andDo(print())
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(errorType(VALIDATION_ERROR));
-    }
-
-    @Test
-    void createWithLocationInFuture() throws Exception {
-        Vote newVote = getNew();
-        newVote.setDateTime(newVote.getDateTime().plusDays(1));
-
-        perform(MockMvcRequestBuilders.post(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newVote))
-                .with(userHttpBasic(user1)))
-                .andDo(print())
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(errorType(VALIDATION_ERROR));
     }
 
 }

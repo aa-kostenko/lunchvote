@@ -1,11 +1,15 @@
 package org.example.lunchvote.web.vote;
 
 import org.example.lunchvote.AuthorizedUser;
-import org.example.lunchvote.model.LunchMenuItem;
 import org.example.lunchvote.model.Restaurant;
+import org.example.lunchvote.model.User;
 import org.example.lunchvote.model.Vote;
+import org.example.lunchvote.repository.RestaurantRepository;
+import org.example.lunchvote.repository.UserRepository;
 import org.example.lunchvote.repository.VoteRepository;
+import org.example.lunchvote.to.VoteTo;
 import org.example.lunchvote.util.exception.NotFoundException;
+import org.example.lunchvote.web.json.JsonUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.example.lunchvote.util.DateTimeUtil.atStartOfDayOrMin;
@@ -28,8 +33,15 @@ public class VoteRestController {
 
     private final VoteRepository repository;
 
-    public VoteRestController(VoteRepository repository) {
+    private final UserRepository userRepository;
+
+    private final RestaurantRepository restaurantRepository;
+
+
+    public VoteRestController(VoteRepository repository, UserRepository userRepository, RestaurantRepository restaurantRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
+        this.restaurantRepository = restaurantRepository;
     }
 
 
@@ -54,8 +66,18 @@ public class VoteRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> createWithLocation(@Validated @RequestBody Vote vote) {
+    public ResponseEntity<Vote> createWithLocation(@AuthenticationPrincipal AuthorizedUser authUser, @Validated @RequestBody VoteTo voteTo) {
+        int userId = authUser.getId();
+        User user = userRepository.findById(userId).get();
+        int restaurantId =  voteTo.getRestaurantId();
+        Restaurant restaurant = restaurantRepository
+                .findById(restaurantId)
+                .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + restaurantId));
+        Vote vote = new Vote(null, LocalDateTime.now(), user, restaurant);
         Vote created = repository.save(vote);
+
+        String json = JsonUtil.writeValue(created);
+
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
