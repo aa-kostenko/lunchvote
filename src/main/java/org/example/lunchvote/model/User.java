@@ -1,5 +1,6 @@
 package org.example.lunchvote.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.lunchvote.HasIdAndEmail;
 import org.springframework.util.CollectionUtils;
 
@@ -23,6 +24,7 @@ public class User extends AbstractNamedEntity implements HasIdAndEmail {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 100)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
@@ -30,6 +32,7 @@ public class User extends AbstractNamedEntity implements HasIdAndEmail {
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
