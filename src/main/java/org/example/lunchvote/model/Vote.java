@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.example.lunchvote.util.validation.UpTo11Clock;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ public class Vote extends AbstractBaseEntity{
 
     @Column(name = "date_time", nullable = false)
     @NotNull
+    @UpTo11Clock
     private LocalDateTime dateTime;
 
     @Transient
