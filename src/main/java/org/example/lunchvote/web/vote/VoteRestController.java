@@ -1,6 +1,7 @@
 package org.example.lunchvote.web.vote;
 
 import org.example.lunchvote.AuthorizedUser;
+import org.example.lunchvote.HasId;
 import org.example.lunchvote.model.Restaurant;
 import org.example.lunchvote.model.User;
 import org.example.lunchvote.model.Vote;
@@ -10,11 +11,16 @@ import org.example.lunchvote.repository.VoteRepository;
 import org.example.lunchvote.to.VoteTo;
 import org.example.lunchvote.util.exception.NotFoundException;
 import org.example.lunchvote.web.json.JsonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindException;
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,6 +32,7 @@ import java.util.List;
 
 import static org.example.lunchvote.util.DateTimeUtil.atStartOfDayOrMin;
 import static org.example.lunchvote.util.DateTimeUtil.atStartOfNextDayOrMax;
+import static org.example.lunchvote.util.validation.ValidationUtil.assureIdConsistent;
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,13 +45,15 @@ public class VoteRestController {
 
     private final RestaurantRepository restaurantRepository;
 
+    @Autowired
+    @Qualifier("defaultValidator")
+    private Validator validator;
 
     public VoteRestController(VoteRepository repository, UserRepository userRepository, RestaurantRepository restaurantRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.restaurantRepository = restaurantRepository;
     }
-
 
     @GetMapping("/{id}")
     public Vote get(@AuthenticationPrincipal AuthorizedUser authUser, @PathVariable int id) {
@@ -67,14 +76,14 @@ public class VoteRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> createWithLocation(@AuthenticationPrincipal AuthorizedUser authUser, @Validated @RequestBody VoteTo voteTo) {
-        int userId = authUser.getId();
-        User user = userRepository.findById(userId).get();
-        int restaurantId =  voteTo.getRestaurantId();
+    public ResponseEntity<Vote> createWithLocation(@AuthenticationPrincipal AuthorizedUser authUser, @Validated @RequestBody VoteTo voteTo) throws BindException {
         Restaurant restaurant = restaurantRepository
-                .findById(restaurantId)
-                .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + restaurantId));
-        Vote vote = new Vote(null, LocalDateTime.now(), user, restaurant);
+                .findById(voteTo.getRestaurantId())
+                .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + voteTo.getRestaurantId()));
+
+        Vote vote = new Vote(null, LocalDateTime.now(), null, restaurant);
+        vote.setUser(userRepository.getOne(authUser.getId()));
+        validateVote(vote);
         Vote created = repository.save(vote);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -93,6 +102,15 @@ public class VoteRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         repository.delete(repository.getOne(id));
+    }
+
+    protected void validateVote(Vote vote) throws BindException {
+        DataBinder binder = new DataBinder(vote);
+        binder.addValidators(validator);
+        binder.validate();
+        if (binder.getBindingResult().hasErrors()) {
+            throw new BindException(binder.getBindingResult());
+        }
     }
 
 }

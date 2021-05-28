@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 public class UpTo11ClockValidator implements ConstraintValidator<UpTo11Clock, LocalDateTime> {
     @Override
     public boolean isValid(LocalDateTime value, ConstraintValidatorContext context) {
-        return value.getHour() <= 11;
+        return value.getHour() < 11;
     }
 }
