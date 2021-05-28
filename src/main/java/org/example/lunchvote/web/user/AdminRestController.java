@@ -50,7 +50,6 @@ public class AdminRestController extends AbstractUserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Validated @RequestBody User user, @PathVariable int id) throws BindException {
         validateBeforeUpdate(user, id);
-        log.info("update {} with id={}", user, id);
         repository.save(user);
     }
 

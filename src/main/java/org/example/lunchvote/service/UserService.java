@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service("userService")
@@ -15,13 +14,11 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository repository) {
         this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
     }
-
+    
     @Override
     public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.findByEmail(email.toLowerCase());
