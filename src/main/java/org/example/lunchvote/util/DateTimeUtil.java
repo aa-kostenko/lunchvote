@@ -13,6 +13,25 @@ public class DateTimeUtil {
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
+    private static boolean useCurrentTime = true;
+    private static LocalTime timeForTest = LocalTime.of(1,2,3);
+
+    public static boolean isUseCurrentTime() {
+        return useCurrentTime;
+    }
+
+    public static void setUseCurrentTime(boolean useCurrentTime) {
+        DateTimeUtil.useCurrentTime = useCurrentTime;
+    }
+
+    public static LocalTime getTimeForTest() {
+        return timeForTest;
+    }
+
+    public static void setTimeForTest(LocalTime timeForTest) {
+        DateTimeUtil.timeForTest = timeForTest;
+    }
+
     // DB doesn't support LocalDate.MIN/MAX
     private static final LocalDateTime MIN_DATE = LocalDateTime.of(1, 1, 1, 0, 0);
     private static final LocalDateTime MAX_DATE = LocalDateTime.of(3000, 1, 1, 0, 0);

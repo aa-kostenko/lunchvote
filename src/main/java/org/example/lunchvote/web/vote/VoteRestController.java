@@ -30,8 +30,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.example.lunchvote.util.DateTimeUtil.atStartOfDayOrMin;
-import static org.example.lunchvote.util.DateTimeUtil.atStartOfNextDayOrMax;
+import static org.example.lunchvote.util.DateTimeUtil.*;
+import static org.example.lunchvote.util.DateTimeUtil.getTimeForTest;
 import static org.example.lunchvote.util.validation.ValidationUtil.assureIdConsistent;
 
 @RestController
@@ -81,7 +81,13 @@ public class VoteRestController {
                 .findById(voteTo.getRestaurantId())
                 .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + voteTo.getRestaurantId()));
 
-        Vote vote = new Vote(null, LocalDateTime.now(), null, restaurant);
+        Vote vote = new Vote();
+        if (isUseCurrentTime()) {
+            vote.setDateTime(LocalDateTime.now());
+        } else {
+            vote.setDateTime(LocalDateTime.of(LocalDate.now(), getTimeForTest()));
+        }
+        vote.setRestaurant(restaurant);
         vote.setUser(userRepository.getOne(authUser.getId()));
         validateVote(vote);
         Vote created = repository.save(vote);

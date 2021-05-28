@@ -18,6 +18,7 @@ import static org.example.lunchvote.TestUtil.userHttpBasic;
 import static org.example.lunchvote.UserTestData.admin1;
 import static org.example.lunchvote.UserTestData.user1;
 import static org.example.lunchvote.VoteTestData.*;
+import static org.example.lunchvote.util.DateTimeUtil.setUseCurrentTime;
 import static org.example.lunchvote.util.VoteUtil.asTo;
 import static org.example.lunchvote.util.exception.ErrorType.VALIDATION_ERROR;
 import static org.example.lunchvote.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_RESTAURANT_NAME;
@@ -70,6 +71,8 @@ public class VoteRestControllerTest  extends AbstractControllerTest {
 
     @Test
     void createWithLocation() throws Exception {
+        setUseCurrentTime(false);
+
         Vote newVote = getNew();
         VoteTo voteTo = asTo(newVote);
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
@@ -81,10 +84,14 @@ public class VoteRestControllerTest  extends AbstractControllerTest {
         int newId = created.id();
         newVote.setId(newId);
         VOTE_MATCHER.assertMatch(created, newVote);
+
+        setUseCurrentTime(true);
     }
 
     @Test
     void createWithLocationTwice() throws Exception {
+        setUseCurrentTime(false);
+
         Vote newVote = getNew();
         VoteTo voteTo = asTo(newVote);
         perform(MockMvcRequestBuilders.post(REST_URL)
@@ -100,6 +107,9 @@ public class VoteRestControllerTest  extends AbstractControllerTest {
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(errorType(VALIDATION_ERROR))
                 .andExpect(content().string(containsString(EXCEPTION_DUPLICATE_VOTE_USER_DATE)));
+
+        setUseCurrentTime(true);
+
     }
 
 }
