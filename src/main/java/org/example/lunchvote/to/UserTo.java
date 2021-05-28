@@ -1,6 +1,7 @@
 package org.example.lunchvote.to;
 
 import org.example.lunchvote.HasIdAndEmail;
+import org.example.lunchvote.util.validation.NoHtml;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +12,7 @@ public class UserTo extends BaseTo implements HasIdAndEmail, Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotBlank
+    @NoHtml
     @Size(min = 2, max = 100)
     private String name;
 
