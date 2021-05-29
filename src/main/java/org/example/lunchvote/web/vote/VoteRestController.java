@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.example.lunchvote.util.DateTimeUtil.*;
+import static org.example.lunchvote.util.validation.ValidationUtil.assureIdConsistent;
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -102,7 +103,7 @@ public class VoteRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@AuthenticationPrincipal AuthorizedUser authUser, @Validated @RequestBody VoteTo voteTo, @PathVariable int id) throws BindException {
-
+        assureIdConsistent(voteTo, id);
         Vote vote = repository
                 .getForUser(id, authUser.getId())
                         .orElseThrow(() -> new NotFoundException("Not found Vote with id " + id + " for AuthorizedUser!"));

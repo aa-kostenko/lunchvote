@@ -2,6 +2,8 @@ package org.example.lunchvote.web.lunchmenuitem;
 
 import org.example.lunchvote.model.LunchMenuItem;
 import org.example.lunchvote.repository.LunchMenuItemRepository;
+import org.example.lunchvote.to.LunchMenuItemTo;
+import org.example.lunchvote.util.LunchMenuItemUtil;
 import org.example.lunchvote.util.exception.NotFoundException;
 import org.example.lunchvote.web.AbstractControllerTest;
 import org.example.lunchvote.web.json.JsonUtil;
@@ -77,9 +79,12 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
     @Test
     void createWithLocation() throws Exception {
         LunchMenuItem newLunchMenuItem = getNew();
+
+        LunchMenuItemTo newLunchMenuItemTo = LunchMenuItemUtil.asTo(newLunchMenuItem);
+
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newLunchMenuItem))
+                .content(JsonUtil.writeValue(newLunchMenuItemTo))
                 .with(userHttpBasic(admin1)));
 
         LunchMenuItem created = readFromJson(action, LunchMenuItem.class);
@@ -91,9 +96,11 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
     @Test
     void createInvalid() throws Exception {
         LunchMenuItem invalid = new LunchMenuItem(null, restauraunt1, null, null, null);
+        LunchMenuItemTo invalidTo = LunchMenuItemUtil.asTo(invalid);
+
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(invalid))
+                .content(JsonUtil.writeValue(invalidTo))
                 .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -110,9 +117,11 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
                 LocalDate.of(2021, 1, 30),
                 new BigDecimal("280.00"));
 
+        LunchMenuItemTo invalidTo = LunchMenuItemUtil.asTo(invalid);
+
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(invalid))
+                .content(JsonUtil.writeValue(invalidTo))
                 .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -129,9 +138,11 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
                 LocalDate.of(2021, 1, 30),
                 new BigDecimal("280.00"));
 
+        LunchMenuItemTo invalidTo = LunchMenuItemUtil.asTo(invalid);
+
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(invalid))
+                .content(JsonUtil.writeValue(invalidTo))
                 .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -141,9 +152,11 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
     @Test
     void createNoAdmin() throws Exception {
         LunchMenuItem newLunchMenuItem = getNew();
+        LunchMenuItemTo newLunchMenuItemTo = LunchMenuItemUtil.asTo(newLunchMenuItem);
+
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newLunchMenuItem))
+                .content(JsonUtil.writeValue(newLunchMenuItemTo))
                 .with(userHttpBasic(user1)))
                 .andDo(print())
                 .andExpect(status().isUnauthorized())
@@ -153,8 +166,10 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
     @Test
     void update() throws Exception {
         LunchMenuItem updated = getUpdated();
+        LunchMenuItemTo updatedTo = LunchMenuItemUtil.asTo(updated);
+
         perform(MockMvcRequestBuilders.put(REST_URL + LUNCH_MENU1_DAY1_ITEM1_ID).contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated))
+                .content(JsonUtil.writeValue(updatedTo))
                 .with(userHttpBasic(admin1)))
                 .andExpect(status().isNoContent());
 
@@ -164,9 +179,10 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
     @Test
     void updateInvalid() throws Exception {
         LunchMenuItem invalid = new LunchMenuItem(null, restauraunt1, null, null, null);
+        LunchMenuItemTo invalidTo = LunchMenuItemUtil.asTo(invalid);
         perform(MockMvcRequestBuilders.put(REST_URL + LUNCH_MENU1_DAY1_ITEM1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(invalid))
+                .content(JsonUtil.writeValue(invalidTo))
                 .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
@@ -182,9 +198,11 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
                 LocalDate.of(2021, 1, 30),
                 new BigDecimal("280.00"));
 
+        LunchMenuItemTo invalidTo = LunchMenuItemUtil.asTo(invalid);
+
         perform(MockMvcRequestBuilders.put(REST_URL + LUNCH_MENU1_DAY1_ITEM1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(invalid))
+                .content(JsonUtil.writeValue(invalidTo))
                 .with(userHttpBasic(admin1)))
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(errorType(VALIDATION_ERROR));
@@ -199,9 +217,11 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
                 LocalDate.of(2021, 1, 30),
                 new BigDecimal("280.00"));
 
+        LunchMenuItemTo invalidTo = LunchMenuItemUtil.asTo(invalid);
+
         perform(MockMvcRequestBuilders.put(REST_URL + LUNCH_MENU1_DAY1_ITEM1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(invalid))
+                .content(JsonUtil.writeValue(invalidTo))
                 .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -211,9 +231,11 @@ public class LunchMenuItemRestControllerTest extends AbstractControllerTest {
     @Test
     void updateNoAdmin() throws Exception {
         LunchMenuItem updated = getUpdated();
+        LunchMenuItemTo updatedTo = LunchMenuItemUtil.asTo(updated);
+
         perform(MockMvcRequestBuilders.put(REST_URL + LUNCH_MENU1_DAY1_ITEM1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated))
+                .content(JsonUtil.writeValue(updatedTo))
                 .with(userHttpBasic(user1)))
                 .andDo(print())
                 .andExpect(status().isUnauthorized())

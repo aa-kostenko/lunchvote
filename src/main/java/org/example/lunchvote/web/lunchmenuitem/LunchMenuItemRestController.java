@@ -1,12 +1,21 @@
 package org.example.lunchvote.web.lunchmenuitem;
 
 import org.example.lunchvote.model.LunchMenuItem;
+import org.example.lunchvote.model.Restaurant;
+import org.example.lunchvote.model.Vote;
 import org.example.lunchvote.repository.LunchMenuItemRepository;
+import org.example.lunchvote.repository.RestaurantRepository;
+import org.example.lunchvote.to.LunchMenuItemTo;
 import org.example.lunchvote.util.exception.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindException;
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,8 +34,15 @@ public class LunchMenuItemRestController {
 
     private final LunchMenuItemRepository repository;
 
-    public LunchMenuItemRestController(LunchMenuItemRepository repository) {
+    private final RestaurantRepository restaurantRepository;
+
+    @Autowired
+    @Qualifier("defaultValidator")
+    private Validator validator;
+
+    public LunchMenuItemRestController(LunchMenuItemRepository repository, RestaurantRepository restaurantRepository) {
         this.repository = repository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     @GetMapping("/{id}")
@@ -42,8 +58,22 @@ public class LunchMenuItemRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<LunchMenuItem> createWithLocation(@Validated @RequestBody LunchMenuItem lunchMenuItem) {
+    public ResponseEntity<LunchMenuItem> createWithLocation(@Validated @RequestBody LunchMenuItemTo lunchMenuItemTo) throws BindException {
+
+        Restaurant restaurant = restaurantRepository
+                .findById(lunchMenuItemTo.getRestaurantId())
+                .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + lunchMenuItemTo.getRestaurantId()));
+
+        LunchMenuItem lunchMenuItem = new LunchMenuItem();
+        lunchMenuItem.setRestaurant(restaurant);
+        lunchMenuItem.setMenuDate(lunchMenuItemTo.getMenuDate());
+        lunchMenuItem.setName(lunchMenuItemTo.getName());
+        lunchMenuItem.setPrice(lunchMenuItemTo.getPrice());
+
+        validateLunchMenuItem(lunchMenuItem);
+
         LunchMenuItem created = repository.save(lunchMenuItem);
+
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -53,8 +83,23 @@ public class LunchMenuItemRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN')")
-    public void update(@Validated @RequestBody LunchMenuItem lunchMenuItem, @PathVariable int id) {
-        assureIdConsistent(lunchMenuItem, id);
+    public void update(@Validated @RequestBody LunchMenuItemTo lunchMenuItemTo, @PathVariable int id) throws BindException {
+        assureIdConsistent(lunchMenuItemTo, id);
+        LunchMenuItem lunchMenuItem = repository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException("Not found LunchMenuItem with id " + id ));
+
+        Restaurant restaurant = restaurantRepository
+                .findById(lunchMenuItemTo.getRestaurantId())
+                .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + lunchMenuItemTo.getRestaurantId()));
+
+        lunchMenuItem.setRestaurant(restaurant);
+        lunchMenuItem.setMenuDate(lunchMenuItemTo.getMenuDate());
+        lunchMenuItem.setName(lunchMenuItemTo.getName());
+        lunchMenuItem.setPrice(lunchMenuItemTo.getPrice());
+
+        validateLunchMenuItem(lunchMenuItem);
+
         repository.save(lunchMenuItem);
     }
 
@@ -63,5 +108,14 @@ public class LunchMenuItemRestController {
     @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable int id) {
         checkSingleModification(repository.delete(id), "LunchMenuItem id=" + id + " missed");
+    }
+
+    protected void validateLunchMenuItem(LunchMenuItem lunchMenuItem) throws BindException {
+        DataBinder binder = new DataBinder(lunchMenuItem);
+        binder.addValidators(validator);
+        binder.validate();
+        if (binder.getBindingResult().hasErrors()) {
+            throw new BindException(binder.getBindingResult());
+        }
     }
 }
