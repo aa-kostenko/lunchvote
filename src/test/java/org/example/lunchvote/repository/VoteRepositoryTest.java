@@ -46,13 +46,13 @@ public class VoteRepositoryTest extends AbstractRepositoryTest{
 
     @Test
     void get() {
-        Vote vote = repository.get(DAY1_VOTE1_ID, USER1_ID).get();
+        Vote vote = repository.getForUser(DAY1_VOTE1_ID, USER1_ID).get();
         VOTE_MATCHER.assertMatch(vote, day1vote1);
     }
 
     @Test
     void getAllByUserId(){
-        List<Vote> voteList = repository.getAll(USER1_ID);
+        List<Vote> voteList = repository.getAllForUser(USER1_ID);
         VOTE_MATCHER.assertMatch(voteList, user1votes);
     }
 
@@ -67,7 +67,7 @@ public class VoteRepositoryTest extends AbstractRepositoryTest{
     @Test
     void getAllBetweenOneDayByUserId(){
         LocalDate date = LocalDate.of(2021, 1, 30);
-        List<Vote> voteList = repository.getAllBetween(
+        List<Vote> voteList = repository.getAllBetweenForUser(
                 atStartOfDayOrMin(date),
                 atStartOfNextDayOrMax(date),
                 USER1_ID);
@@ -78,7 +78,7 @@ public class VoteRepositoryTest extends AbstractRepositoryTest{
     void getAllBetweenTwoDaysByUserId(){
         LocalDate startDate = LocalDate.of(2021, 1, 30);
         LocalDate endDate = LocalDate.of(2021, 1, 31);
-        List<Vote> voteList = repository.getAllBetween(
+        List<Vote> voteList = repository.getAllBetweenForUser(
                 atStartOfDayOrMin(startDate),
                 atStartOfNextDayOrMax(endDate),
                 USER1_ID);
@@ -89,7 +89,7 @@ public class VoteRepositoryTest extends AbstractRepositoryTest{
     @Test
     void getAllInNoWorkDayByUserId(){
         LocalDate date = LocalDate.of(1900, 1, 30);
-        List<Vote> voteList = repository.getAllBetween(
+        List<Vote> voteList = repository.getAllBetweenForUser(
                 atStartOfDayOrMin(date),
                 atStartOfNextDayOrMax(date),
                 USER1_ID);

@@ -6,6 +6,7 @@ import org.example.lunchvote.model.Vote;
 import org.example.lunchvote.repository.RestaurantRepository;
 import org.example.lunchvote.repository.UserRepository;
 import org.example.lunchvote.repository.VoteRepository;
+import org.example.lunchvote.to.VoteResult;
 import org.example.lunchvote.to.VoteTo;
 import org.example.lunchvote.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.example.lunchvote.util.DateTimeUtil.*;
 
@@ -53,21 +58,21 @@ public class VoteRestController {
     @GetMapping("/{id}")
     public Vote get(@AuthenticationPrincipal AuthorizedUser authUser, @PathVariable int id) {
         return repository
-                .get(id, authUser.getId())
+                .getForUser(id, authUser.getId())
                 .orElseThrow(() -> new NotFoundException("Not found Vote with id " + id + " for user with id " + authUser.getId()));
     }
 
     @GetMapping
     public List<Vote> getAll(@AuthenticationPrincipal AuthorizedUser authUser) {
         int userId = authUser.getId();
-        return repository.getAll(userId);
+        return repository.getAllForUser(userId);
     }
 
     @GetMapping("/today")
     public List<Vote> getToday(@AuthenticationPrincipal AuthorizedUser authUser) {
         LocalDate dateNow = LocalDate.now();
         int userId = authUser.getId();
-        return repository.getAllBetween(atStartOfDayOrMin(dateNow), atStartOfNextDayOrMax(dateNow), userId);
+        return repository.getAllBetweenForUser(atStartOfDayOrMin(dateNow), atStartOfNextDayOrMax(dateNow), userId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -99,7 +104,7 @@ public class VoteRestController {
     public void update(@AuthenticationPrincipal AuthorizedUser authUser, @Validated @RequestBody VoteTo voteTo, @PathVariable int id) throws BindException {
 
         Vote vote = repository
-                .get(id, authUser.getId())
+                .getForUser(id, authUser.getId())
                         .orElseThrow(() -> new NotFoundException("Not found Vote with id " + id + " for AuthorizedUser!"));
 
         Restaurant restaurant = restaurantRepository
@@ -118,6 +123,20 @@ public class VoteRestController {
 
         repository.save(vote);
     }
+
+
+    @GetMapping("/todayResult")
+    public List<VoteResult> getVoteResultToday() {
+        LocalDate dateNow = LocalDate.now();
+        List<Vote> votes = repository.getAllWithRestaurantsBetween(atStartOfDayOrMin(dateNow), atStartOfNextDayOrMax(dateNow));
+        List<VoteResult> voteResultList = new ArrayList<>();
+        Map<Restaurant, Long> restaurantVoteCount = votes.stream().collect(Collectors.groupingBy(Vote::getRestaurant, Collectors.counting()));
+        restaurantVoteCount.forEach((k, v)-> voteResultList.add(new VoteResult(k, dateNow, v)));
+        return voteResultList.stream()
+                .sorted(Comparator.comparing(VoteResult::getVoteCount).reversed())
+                .collect(Collectors.toList());
+    }
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
