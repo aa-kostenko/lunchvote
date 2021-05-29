@@ -2,6 +2,7 @@ package org.example.lunchvote;
 
 import org.example.lunchvote.model.LunchMenuItem;
 import org.example.lunchvote.model.Vote;
+import org.example.lunchvote.to.VoteResult;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +19,9 @@ import static org.example.lunchvote.UserTestData.*;
 public class VoteTestData {
     public static org.example.lunchvote.TestMatcher<Vote> VOTE_MATCHER =
             TestMatcher.usingIgnoringFieldsComparator(Vote.class, "user", "restaurant", "dateTime");
+
+    public static org.example.lunchvote.TestMatcher<VoteResult> VOTE_RESULT_MATCHER =
+            TestMatcher.usingIgnoringFieldsComparator(VoteResult.class);
 
     public static final int NOT_FOUND = 0;
 
@@ -106,4 +110,8 @@ public class VoteTestData {
                 restauraunt1
         );
     }
+
+    public static final VoteResult todayVoteResult = new VoteResult(restauraunt4, LocalDate.now(), 1L);
+    public static final List<VoteResult> todayVoteResultList = List.of(todayVoteResult);
+
 }

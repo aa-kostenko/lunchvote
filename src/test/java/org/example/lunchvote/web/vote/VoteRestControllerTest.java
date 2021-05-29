@@ -222,4 +222,14 @@ public class VoteRestControllerTest  extends AbstractControllerTest {
                 .andExpect(errorType(ACCESS_DENIED));
     }
 
+    @Test
+    void getVoteResultToday() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + "todayResult")
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(VOTE_RESULT_MATCHER.contentJson(todayVoteResultList));
+    }
+
 }

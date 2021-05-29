@@ -1,6 +1,8 @@
 package org.example.lunchvote.to;
 
 import org.example.lunchvote.model.Restaurant;
+
+import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
 public class VoteResult {
@@ -8,6 +10,7 @@ public class VoteResult {
     private LocalDate date;
     private Long voteCount;
 
+    @ConstructorProperties({"restaurant", "date", "voteCount"})
     public VoteResult(Restaurant restaurant, LocalDate date, Long voteCount) {
         this.restaurant = restaurant;
         this.date = date;
