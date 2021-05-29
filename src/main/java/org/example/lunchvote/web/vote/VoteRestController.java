@@ -1,16 +1,13 @@
 package org.example.lunchvote.web.vote;
 
 import org.example.lunchvote.AuthorizedUser;
-import org.example.lunchvote.HasId;
 import org.example.lunchvote.model.Restaurant;
-import org.example.lunchvote.model.User;
 import org.example.lunchvote.model.Vote;
 import org.example.lunchvote.repository.RestaurantRepository;
 import org.example.lunchvote.repository.UserRepository;
 import org.example.lunchvote.repository.VoteRepository;
 import org.example.lunchvote.to.VoteTo;
 import org.example.lunchvote.util.exception.NotFoundException;
-import org.example.lunchvote.web.json.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -31,8 +28,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.example.lunchvote.util.DateTimeUtil.*;
-import static org.example.lunchvote.util.DateTimeUtil.getTimeForTest;
-import static org.example.lunchvote.util.validation.ValidationUtil.assureIdConsistent;
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)

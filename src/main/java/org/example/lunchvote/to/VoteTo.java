@@ -8,16 +8,23 @@ import java.util.Objects;
 public class VoteTo extends BaseTo implements  Serializable {
 
     @NotNull
-    private int RestaurantId;
+    private Integer RestaurantId;
+
+    public VoteTo() {
+    }
 
     @ConstructorProperties({"id", "restaurantId"})
-    public VoteTo(Integer id, int restaurantId) {
+    public VoteTo(Integer id, Integer restaurantId) {
         super(id);
         RestaurantId = restaurantId;
     }
 
-    public int getRestaurantId() {
+    public Integer getRestaurantId() {
         return RestaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        RestaurantId = restaurantId;
     }
 
     @Override
@@ -25,8 +32,7 @@ public class VoteTo extends BaseTo implements  Serializable {
         if (this == o) return true;
         if (!(o instanceof VoteTo)) return false;
         VoteTo voteTo = (VoteTo) o;
-        return  Objects.equals(id, voteTo.id) &&
-                RestaurantId == voteTo.RestaurantId;
+        return this.id == voteTo.id && Objects.equals(RestaurantId, voteTo.RestaurantId);
     }
 
     @Override
