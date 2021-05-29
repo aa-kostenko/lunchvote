@@ -77,6 +77,7 @@ public class VoteRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> createWithLocation(@AuthenticationPrincipal AuthorizedUser authUser, @Validated @RequestBody VoteTo voteTo) throws BindException {
+
         Restaurant restaurant = restaurantRepository
                 .findById(voteTo.getRestaurantId())
                 .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + voteTo.getRestaurantId()));
@@ -87,6 +88,7 @@ public class VoteRestController {
         } else {
             vote.setDateTime(LocalDateTime.of(LocalDate.now(), getTimeForTest()));
         }
+
         vote.setRestaurant(restaurant);
         vote.setUser(userRepository.getOne(authUser.getId()));
         validateVote(vote);
@@ -99,7 +101,26 @@ public class VoteRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Validated @RequestBody Vote vote, @PathVariable int id) {
+    public void update(@AuthenticationPrincipal AuthorizedUser authUser, @Validated @RequestBody VoteTo voteTo, @PathVariable int id) throws BindException {
+
+        Vote vote = repository
+                .get(id, authUser.getId())
+                        .orElseThrow(() -> new NotFoundException("Not found Vote with id " + id + " for AuthorizedUser!"));
+
+        Restaurant restaurant = restaurantRepository
+                .findById(voteTo.getRestaurantId())
+                .orElseThrow(() -> new NotFoundException("Not found restaurant with id " + voteTo.getRestaurantId()));
+
+        vote.setRestaurant(restaurant);
+
+        if (isUseCurrentTime()) {
+            vote.setDateTime(LocalDateTime.now());
+        } else {
+            vote.setDateTime(LocalDateTime.of(LocalDate.now(), getTimeForTest()));
+        }
+
+        validateVote(vote);
+
         repository.save(vote);
     }
 
