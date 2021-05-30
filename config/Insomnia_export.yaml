@@ -1,0 +1,966 @@
+_type: export
+__export_format: 4
+__export_date: 2021-05-30T07:42:40.609Z
+__export_source: insomnia.desktop.app:v2021.3.0
+resources:
+  - _id: req_ece416ee2bf846fb89866867b62010a4
+    parentId: fld_1fce7a2425df4505a07a09a916108a33
+    modified: 1622361578398
+    created: 1621529529002
+    url: http://localhost:8080/lunchvote/rest/restaurants
+    name: get all
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: user1@yandex.ru
+      password: password1
+    metaSortKey: -1621529529202
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1fce7a2425df4505a07a09a916108a33
+    parentId: fld_c9d00c38a93645318167be60aba18d7d
+    modified: 1622312394593
+    created: 1622311745530
+    name: restaurants
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1622312112904
+    _type: request_group
+  - _id: fld_c9d00c38a93645318167be60aba18d7d
+    parentId: wrk_16cbb6b9239a4a7480c36856d1ba46f3
+    modified: 1622359957694
+    created: 1622311262075
+    name: lunchvote
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1622311262075
+    _type: request_group
+  - _id: wrk_16cbb6b9239a4a7480c36856d1ba46f3
+    parentId: null
+    modified: 1619253043444
+    created: 1619253043444
+    name: Insomnia
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_1810b2116e854829a530d9938057ca82
+    parentId: fld_1fce7a2425df4505a07a09a916108a33
+    modified: 1622361583278
+    created: 1622311591576
+    url: http://localhost:8080/lunchvote/rest/restaurants/1
+    name: get 1
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: user1@yandex.ru
+      password: password1
+    metaSortKey: -1621529529177
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_029be5e6697d434ba29ef107e6680601
+    parentId: fld_1fce7a2425df4505a07a09a916108a33
+    modified: 1622361598888
+    created: 1621756358766
+    url: http://localhost:8080/lunchvote/rest/restaurants/hasMenuToday
+    name: get all has menu today
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: user1@yandex.ru
+      password: password1
+    metaSortKey: -1621529529164.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_45498db29655445a9b2c12040abf5d7a
+    parentId: fld_1fce7a2425df4505a07a09a916108a33
+    modified: 1622361608886
+    created: 1621535586544
+    url: http://localhost:8080/lunchvote/rest/restaurants
+    name: create with location
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{"name":"Новый ресторан"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json;charset=UTF-8
+        id: pair_a6646d90455d4a5b8405502d750339f2
+    authentication:
+      username: admin1@gmail.com
+      password: admin1
+      type: basic
+    metaSortKey: -1621529529152
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_dd1aa361bdb046448601f43253d468e8
+    parentId: fld_1fce7a2425df4505a07a09a916108a33
+    modified: 1622361612054
+    created: 1621784510237
+    url: http://localhost:8080/lunchvote/rest/restaurants/1
+    name: update 1
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: '{"id": 1, "name":"Бумбараш (измененный)"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json;charset=UTF-8
+        id: pair_a6646d90455d4a5b8405502d750339f2
+    authentication:
+      username: admin1@gmail.com
+      password: admin1
+      type: basic
+    metaSortKey: -1621529529102
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ab36bde15da0486fa139eb7e7769fedd
+    parentId: fld_1fce7a2425df4505a07a09a916108a33
+    modified: 1622361618718
+    created: 1622311865194
+    url: http://localhost:8080/lunchvote/rest/restaurants/1
+    name: delete 1
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1621529529052
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ca4992728b1d4e7d814fe70b9f5acb8a
+    parentId: fld_86c4db69902448ba9883e2b9b04d9a8b
+    modified: 1622361634398
+    created: 1622311953564
+    url: http://localhost:8080/lunchvote/rest/lunchmenuitems/allToday
+    name: get all today for restaurant 4
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: restaurantId
+        value: "4"
+        description: ""
+        id: pair_584749c071874de59d8e984e4d0a42b6
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: user1@yandex.ru
+      password: password1
+    metaSortKey: -1621529529227
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_86c4db69902448ba9883e2b9b04d9a8b
+    parentId: fld_c9d00c38a93645318167be60aba18d7d
+    modified: 1622312397701
+    created: 1622311919070
+    name: lunchmenuitems
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1622312112879
+    _type: request_group
+  - _id: req_b1f24a29e1c5401c8c3131bd4908289b
+    parentId: fld_86c4db69902448ba9883e2b9b04d9a8b
+    modified: 1622361638934
+    created: 1622312497807
+    url: http://localhost:8080/lunchvote/rest/lunchmenuitems/1
+    name: get 1
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: user1@yandex.ru
+      password: password1
+    metaSortKey: -1621529529214.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8f43d6ce65f945bc8aa6d3837fcfc4b1
+    parentId: fld_86c4db69902448ba9883e2b9b04d9a8b
+    modified: 1622361655654
+    created: 1622312659572
+    url: http://localhost:8080/lunchvote/rest/lunchmenuitems/
+    name: create with location
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{ "restaurantId": 4, "name": "Новое блюдо", "menuDate": "2021-05-29" ,
+        "price": "222.54"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_96a4a09452864c88add5eb544bb475ae
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1621529529208.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_18089c56cb1e43d7a315916aa596a17a
+    parentId: fld_86c4db69902448ba9883e2b9b04d9a8b
+    modified: 1622361708015
+    created: 1622318100782
+    url: http://localhost:8080/lunchvote/rest/lunchmenuitems/16
+    name: update menu item 16
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: '{ "restaurantId": 4, "name": "Новое блюдо (стало еще новее)", "menuDate":
+        "2021-05-29" , "price": "222.54"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_96a4a09452864c88add5eb544bb475ae
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1621529529205.125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8ea93fdac16d4a7f9b2bf488956eee60
+    parentId: fld_86c4db69902448ba9883e2b9b04d9a8b
+    modified: 1622361712598
+    created: 1622318209718
+    url: http://localhost:8080/lunchvote/rest/lunchmenuitems/1
+    name: delete 1
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1621529529203.5625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_07208b6fbd3e4ec596609162f026e89f
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622357359475
+    created: 1622356097067
+    url: http://localhost:8080/lunchvote/rest/votes/all
+    name: get all
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1622311989915.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    parentId: fld_c9d00c38a93645318167be60aba18d7d
+    modified: 1622312401441
+    created: 1622312060261
+    name: votes
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1622312112866.5
+    _type: request_group
+  - _id: req_7ed5a63b68de4e25a4de7887dcfd3c41
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622361736302
+    created: 1622275522467
+    url: http://localhost:8080/lunchvote/rest/votes
+    name: get all for user 1
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: user1@yandex.ru
+      password: password1
+    metaSortKey: -1622311989865.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cebef7112c60450892d33dd362121af3
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622361745086
+    created: 1622363452173
+    url: http://localhost:8080/lunchvote/rest/votes/4
+    name: get 4 for user 1
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: user1@yandex.ru
+      password: password1
+    metaSortKey: -1622311989853
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b73bc43da0e44bf18ab6317c7ed61c68
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622361768176
+    created: 1622363784105
+    url: http://localhost:8080/lunchvote/rest/votes/today
+    name: get all today for user 3
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: user3@yandex.ru
+      password: password3
+    metaSortKey: -1622311989846.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d2d22282771341c9be8886b324b29e70
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622361780983
+    created: 1622304284613
+    url: http://localhost:8080/lunchvote/rest/votes/todayResult
+    name: get vote result today
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1622311989831.125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cc98470baa55441192c0fe7c0cb71dec
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622364647411
+    created: 1622142083383
+    url: http://localhost:8080/lunchvote/rest/votes
+    name: vote user 1 for restaurant 1
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{"restaurantId":"1"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json;charset=UTF-8
+        id: pair_a6646d90455d4a5b8405502d750339f2
+    authentication:
+      username: user1@yandex.ru
+      password: password1
+      type: basic
+    metaSortKey: -1622311989765.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8512de19603b4e67bb334681c7b1abdf
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622364677667
+    created: 1622364667939
+    url: http://localhost:8080/lunchvote/rest/votes
+    name: vote user 2 for restaurant 4
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{"restaurantId":"4"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json;charset=UTF-8
+        id: pair_a6646d90455d4a5b8405502d750339f2
+    authentication:
+      username: user2@yandex.ru
+      password: password2
+      type: basic
+    metaSortKey: -1621920759496.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e9180766a4504956a9040b2583742b2d
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622361515650
+    created: 1622293716641
+    url: http://localhost:8080/lunchvote/rest/votes/8
+    name: update user 1 vote with id 8 to restaurant 4
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: '{"restaurantId":"4"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json;charset=UTF-8
+        id: pair_a6646d90455d4a5b8405502d750339f2
+    authentication:
+      username: user1@yandex.ru
+      password: password1
+      type: basic
+    metaSortKey: -1621920759446.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_83a1d67a08f34d7a8789ce817bb4125f
+    parentId: fld_5e1de20c5b0d4455a4e99a84cbf56c11
+    modified: 1622357029902
+    created: 1622356982971
+    url: http://localhost:8080/lunchvote/rest/votes/7
+    name: delete vote 7
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1621920759396.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_af31831a018b4ac2ba390bef39a30bb3
+    parentId: fld_0269f512adf04d90b1828409e8ec8612
+    modified: 1622358397934
+    created: 1619256499123
+    url: http://localhost:8080/lunchvote/rest/profile/register
+    name: register
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{"name":"TestUser","email":"test@mail.ru","password":"test-pass"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json;charset=UTF-8
+        id: pair_3e9ed659ac2e429fade49dd74f5eff5a
+    authentication: {}
+    metaSortKey: -1622312100055.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_0269f512adf04d90b1828409e8ec8612
+    parentId: fld_e15ddd7d907d468ab356910f1cc881d1
+    modified: 1622358441852
+    created: 1622358375990
+    name: profile
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1622312100005.75
+    _type: request_group
+  - _id: fld_e15ddd7d907d468ab356910f1cc881d1
+    parentId: fld_c9d00c38a93645318167be60aba18d7d
+    modified: 1622312112854
+    created: 1622312112854
+    name: users
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1622312112854
+    _type: request_group
+  - _id: req_eb3e4610160e49a383d5c2a4cdd8e968
+    parentId: fld_0269f512adf04d90b1828409e8ec8612
+    modified: 1622358408963
+    created: 1622357573040
+    url: http://localhost:8080/lunchvote/rest/profile
+    name: get profile
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: test@mail.ru
+      password: test-pass
+    metaSortKey: -1622312100030.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_dcae51f7d4da433197e85bd75b5500ec
+    parentId: fld_0269f512adf04d90b1828409e8ec8612
+    modified: 1622358411101
+    created: 1621968935177
+    url: http://localhost:8080/lunchvote/rest/profile
+    name: update profile
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: '{"name":"TestUserNEW","email":"test@mail.ru","password":"test-pass"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_faa300f02b4f466ca28f217e244428b7
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: test@mail.ru
+      password: test-pass
+    metaSortKey: -1622312100018.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b506dc44ee234df18bd20ab68dccd172
+    parentId: fld_0269f512adf04d90b1828409e8ec8612
+    modified: 1622358395823
+    created: 1622357825648
+    url: http://localhost:8080/lunchvote/rest/profile/
+    name: delete profile
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: test@mail.ru
+      password: test-pass
+    metaSortKey: -1622312100005.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_912834ea8f97459e8dea11bfbccb7f98
+    parentId: fld_da19186f366547cbab2f09ae604fc6b8
+    modified: 1622359478432
+    created: 1622358797479
+    url: http://localhost:8080/lunchvote/rest/admin/users
+    name: get all users
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1622312099805.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_da19186f366547cbab2f09ae604fc6b8
+    parentId: fld_e15ddd7d907d468ab356910f1cc881d1
+    modified: 1622358438853
+    created: 1622358431366
+    name: admin
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1622312099955.75
+    _type: request_group
+  - _id: req_792eac555d7b4c13a440630bac573a8d
+    parentId: fld_da19186f366547cbab2f09ae604fc6b8
+    modified: 1622359732658
+    created: 1622359726980
+    url: http://localhost:8080/lunchvote/rest/admin/users/3
+    name: get user by id 3
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1622312099780.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c3c4cb369e6d4da0a9e1af9b50701947
+    parentId: fld_da19186f366547cbab2f09ae604fc6b8
+    modified: 1622359802013
+    created: 1622359770141
+    url: http://localhost:8080/lunchvote/rest/admin/users/by
+    name: get user by  email user2@yandex.ru
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: email
+        value: user2@yandex.ru
+        description: ""
+        id: pair_2f81d9dabc7a4ebbb93887c6747cd29f
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1622312099768.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ebf5197b94484458af4687ccc6098f04
+    parentId: fld_da19186f366547cbab2f09ae604fc6b8
+    modified: 1622358600601
+    created: 1619256691195
+    url: http://localhost:8080/lunchvote/rest/admin/users
+    name: create user by admin
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{"name":"New User1","email":"test1@mail.ru","password":"test-password1"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json;charset=UTF-8
+        id: pair_d606ab9636a24388b899a1c50745af6a
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: admin1@gmail.com
+      password: admin1
+    metaSortKey: -1622312099755.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8768e89d57a44eb595b5061caa2c542f
+    parentId: fld_da19186f366547cbab2f09ae604fc6b8
+    modified: 1622359585695
+    created: 1621965768989
+    url: http://localhost:8080/lunchvote/rest/admin/users/6
+    name: update user by admin
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: '{"id":6,"name":"User1","email":"fakeadmin@gmail.com","password":"password","enabled":true,"registered":"2021-05-24T18:59:31.833+00:00","roles":["USER"]}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json;charset=UTF-8
+        id: pair_a6646d90455d4a5b8405502d750339f2
+    authentication:
+      username: admin1@gmail.com
+      password: admin1
+      type: basic
+    metaSortKey: -1622312099705.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_98ebfdab2d504cc6be7343a57b5679b5
+    parentId: fld_da19186f366547cbab2f09ae604fc6b8
+    modified: 1622359619469
+    created: 1622359613205
+    url: http://localhost:8080/lunchvote/rest/admin/users/6
+    name: delete user by admin
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      username: admin1@gmail.com
+      password: admin1
+      type: basic
+    metaSortKey: -1622312044810.625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_23effc40c8f6a62bf2cdd9502c3ca1171aa01b7c
+    parentId: wrk_16cbb6b9239a4a7480c36856d1ba46f3
+    modified: 1619253043486
+    created: 1619253043486
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1619253043486
+    _type: environment
+  - _id: jar_23effc40c8f6a62bf2cdd9502c3ca1171aa01b7c
+    parentId: wrk_16cbb6b9239a4a7480c36856d1ba46f3
+    modified: 1621533334074
+    created: 1619253043490
+    name: Default Jar
+    cookies:
+      - key: JSESSIONID
+        value: 4E23B7E36C7DEBED9D2C363394DD2D28
+        domain: localhost
+        path: /topjava
+        httpOnly: true
+        hostOnly: true
+        creation: 2021-05-20T17:55:33.914Z
+        lastAccessed: 2021-05-20T17:55:33.914Z
+        id: "4371043973009503"
+    _type: cookie_jar
+  - _id: spc_d8b2e05982924856b1e0b7b4c3b3e321
+    parentId: wrk_16cbb6b9239a4a7480c36856d1ba46f3
+    modified: 1619253043445
+    created: 1619253043445
+    fileName: Insomnia
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_ae913399dca84d97a21ac81597a465e1
+    parentId: env_23effc40c8f6a62bf2cdd9502c3ca1171aa01b7c
+    modified: 1619253972488
+    created: 1619253964334
+    name: topjava
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1619253964334
+    _type: environment
+  - _id: env_ecb92803f454455eab58e04f12a7d420
+    parentId: env_23effc40c8f6a62bf2cdd9502c3ca1171aa01b7c
+    modified: 1621529386129
+    created: 1621529354774
+    name: lunchvote
+    data: {}
+    dataPropertyOrder: null
+    color: "#188124"
+    isPrivate: false
+    metaSortKey: 1621529354775
+    _type: environment
