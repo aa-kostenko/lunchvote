@@ -70,7 +70,7 @@ public class VoteRestController {
     }
 
     @GetMapping("/today")
-    public List<Vote> getTodayForUser(@AuthenticationPrincipal AuthorizedUser authUser) {
+    public List<Vote> getAllTodayForUser(@AuthenticationPrincipal AuthorizedUser authUser) {
         LocalDate dateNow = LocalDate.now();
         int userId = authUser.getId();
         return repository.getAllBetweenForUser(atStartOfDayOrMin(dateNow), atStartOfNextDayOrMax(dateNow), userId);
