@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 import static org.example.lunchvote.util.DateTimeUtil.*;
 import static org.example.lunchvote.util.validation.ValidationUtil.assureIdConsistent;
+import static org.example.lunchvote.util.validation.ValidationUtil.checkSingleModification;
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -125,6 +126,11 @@ public class VoteRestController {
         repository.save(vote);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/all")
+    public List<Vote> getAll() {
+        return repository.getAll();
+    }
 
     @GetMapping("/todayResult")
     public List<VoteResult> getVoteResultToday() {
@@ -138,12 +144,11 @@ public class VoteRestController {
                 .collect(Collectors.toList());
     }
 
-
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        repository.delete(repository.getOne(id));
+        checkSingleModification(repository.delete(id), "Vote id=" + id + " missed");
     }
 
     protected void validateVote(Vote vote) throws BindException {

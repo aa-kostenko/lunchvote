@@ -2,6 +2,7 @@ package org.example.lunchvote.repository;
 
 import org.example.lunchvote.model.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,11 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Vote v WHERE v.id=:id")
+    int delete(@Param("id") int id);
+
     @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.user.id = :userId and v.dateTime >= :startDate and v.dateTime <= :endDate ORDER BY v.dateTime ASC")
     List<Vote> getAllBetweenForUser(@Param("startDate") LocalDateTime startDateTime, @Param("endDate") LocalDateTime endDateTime, @Param("userId") int userId);
 
@@ -27,5 +33,8 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
     @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.dateTime >= :startDate and v.dateTime <= :endDate ")
     List<Vote> getAllWithRestaurantsBetween(@Param("startDate") LocalDateTime startDateTime, @Param("endDate") LocalDateTime endDateTime);
+
+    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant ORDER BY v.dateTime ASC")
+    List<Vote> getAll();
 
 }
