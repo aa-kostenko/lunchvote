@@ -57,20 +57,20 @@ public class VoteRestController {
     }
 
     @GetMapping("/{id}")
-    public Vote get(@AuthenticationPrincipal AuthorizedUser authUser, @PathVariable int id) {
+    public Vote getForUser(@AuthenticationPrincipal AuthorizedUser authUser, @PathVariable int id) {
         return repository
                 .getForUser(id, authUser.getId())
                 .orElseThrow(() -> new NotFoundException("Not found Vote with id " + id + " for user with id " + authUser.getId()));
     }
 
     @GetMapping
-    public List<Vote> getAll(@AuthenticationPrincipal AuthorizedUser authUser) {
+    public List<Vote> getAllForUser(@AuthenticationPrincipal AuthorizedUser authUser) {
         int userId = authUser.getId();
         return repository.getAllForUser(userId);
     }
 
     @GetMapping("/today")
-    public List<Vote> getToday(@AuthenticationPrincipal AuthorizedUser authUser) {
+    public List<Vote> getTodayForUser(@AuthenticationPrincipal AuthorizedUser authUser) {
         LocalDate dateNow = LocalDate.now();
         int userId = authUser.getId();
         return repository.getAllBetweenForUser(atStartOfDayOrMin(dateNow), atStartOfNextDayOrMax(dateNow), userId);
