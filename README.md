@@ -24,11 +24,25 @@ If it is after 11:00 then it is too late, vote can't be changed
 
 Each restaurant provides a new menu each day.
 
-================================================
+===========================
+
+Working environment to run:
+
+java version 15
+
+apache-maven (i am using 3.6.1)
+
+===========================
+
+To fast run you may use configured maven-cargo plugin:
+
+goal cargo:run
+
+===========================
 
 Curl commands (export from Insomnia) as example of using API.
 
-===============================================
+===========================
 
 ***
 RESTAURANTS (/rest/restaurants)
